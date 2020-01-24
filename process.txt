@@ -1,0 +1,32 @@
+1. ACQUIRE THE DATA
+	A. In my project folder I created two folders:
+		1) one to hold the downloaded zip files,
+		2) another to hold the unzipped csv data.
+	B. I added these folders to my project's .gitignore file.
+	C. Download the CSV zip files
+		1) 131 in total:
+			a) 79 for New York City
+			b) 52 for Jersey City
+			c) 16.26 GB of unoptimized data
+	D. Unzip the files.
+		1) I used 7zip to unzip all of the files as a single operation.
+	E. Fix file names.
+		1) The file name format changed in 2014, so earlier file names needed updating to allow programatic access.
+		2) I noted that the unzipped file names for Jan-Mar of 2016 forgot to include a
+			leading zero on the month, so fixed those.
+		3) Additionally fixed the Aug 2017 file, which used a space where all other files had used a dash.
+
+2. CLEAN THE DATA
+	A. Created a new Jupyter Notebook in which to do ETL.
+	B. Wrote a nested loop (month and year) to read in each file as a dataframe, and stored them in two dictionaries:
+		1) One for New York City, and
+		2) One for Jersey City.
+	C. During that loop, also tracked total rides by month/year, then plotted the lines for a sanity check.
+		1) This helped me identify two issues that were corrected:
+			a) one with data acquisition: I had not acquired all the files, and they were of mixed origin;
+			b) and one with data loading: I hadn't accounted for the lack of data during the early months of 2013.
+	D. Looped through the dataframes to identify any changes in column names during the 4 year period.
+		1) Found that most files were using lower-cased column names, and 15 were using upper-cased names.
+		2) Additionally, in the files using lower-cased names, many of those names had been munged into a single word.
+		3) Previewing the most logical files found that the changes occurred between Mar and Apr of 2017.
+		4) All column names, from both styles, were renamed to smaller, easier-to-read names using undescores.
